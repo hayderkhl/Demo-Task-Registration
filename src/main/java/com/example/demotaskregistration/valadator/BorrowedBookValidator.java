@@ -1,9 +1,6 @@
 package com.example.demotaskregistration.valadator;
 
 import com.example.demotaskregistration.dto.BorrowedBookDto;
-import org.springframework.util.StringUtils;
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,11 +14,11 @@ public class BorrowedBookValidator {
         {
             errors.add("please add a the book to borrow");
         }
-        if (dto.getUser().getId() != null)
+        if (dto.getUser() != null)
         {
             errors.add("add the name!");
         }
-        if (dto.getBook().getId() != null)
+        if (dto.getBook()!= null)
         {
             errors.add("add the name!");
         }
