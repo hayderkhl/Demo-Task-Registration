@@ -3,6 +3,7 @@ package com.example.demotaskregistration.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Getter
@@ -12,7 +13,7 @@ import java.util.Date;
 @Builder
 @Entity
 @Table(name = "borrowed_books")
-public class BorrowedBook {
+public class BorrowedBook implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
