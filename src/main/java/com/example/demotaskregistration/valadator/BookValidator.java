@@ -14,7 +14,7 @@ public class BookValidator {
 
         if (dto == null)
         {
-            errors.add("please add a User");
+            errors.add("please add a book");
         }
         if (!StringUtils.hasLength(dto.getAuthor()))
         {

@@ -21,24 +21,14 @@ public class BorrowedBookValidator {
         {
             errors.add("add the name!");
         }
-        if (!StringUtils.hasLength((CharSequence) dto.getBorrowDate())) {
+        if (dto.getBorrowDate() == null || dto.getBorrowDate().toString().isEmpty()) {
             errors.add("Add the borrow date!");
-        } else {
-            try {
-                LocalDate.parse((CharSequence) dto.getBorrowDate()); // Attempt to parse the date string
-            } catch (DateTimeParseException e) {
-                errors.add("Invalid borrow date format. Please use yyyy-MM-dd format."); // Add error message if parsing fails
-            }
         }
-        if (!StringUtils.hasLength((CharSequence) dto.getReturnDate())) {
+
+        if (dto.getReturnDate() == null || dto.getReturnDate().toString().isEmpty()) {
             errors.add("Add the return date!");
-        } else {
-            try {
-                LocalDate.parse((CharSequence) dto.getReturnDate()); // Attempt to parse the date string
-            } catch (DateTimeParseException e) {
-                errors.add("Invalid return date format. Please use yyyy-MM-dd format."); // Add error message if parsing fails
-            }
         }
+
         return errors;
     }
 }
