@@ -18,7 +18,6 @@ public class BorrowedBookDto {
     private Long id;
     private BookDto book;
     private UserDto user;
-    private String userName;
     private Date borrowDate;
     private Date returnDate;
     private String status;

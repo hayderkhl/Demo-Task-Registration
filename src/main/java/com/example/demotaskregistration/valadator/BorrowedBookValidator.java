@@ -17,7 +17,11 @@ public class BorrowedBookValidator {
         {
             errors.add("please add a the book to borrow");
         }
-        if (!StringUtils.hasLength(dto.getUserName()))
+        if (dto.getUser().getId() != null)
+        {
+            errors.add("add the name!");
+        }
+        if (dto.getBook().getId() != null)
         {
             errors.add("add the name!");
         }
