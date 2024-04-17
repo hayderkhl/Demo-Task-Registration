@@ -3,7 +3,9 @@ package com.example.demotaskregistration.service.serviceImpl;
 import com.example.demotaskregistration.Repository.BookRepository;
 import com.example.demotaskregistration.Repository.BorrowedBookRepository;
 import com.example.demotaskregistration.Repository.UserRepository;
+import com.example.demotaskregistration.dto.BookDto;
 import com.example.demotaskregistration.dto.BorrowedBookDto;
+import com.example.demotaskregistration.dto.UserDto;
 import com.example.demotaskregistration.exception.EntityNotFoundException;
 import com.example.demotaskregistration.exception.ErrorCodes;
 import com.example.demotaskregistration.exception.InvalidEntityException;
@@ -83,34 +85,42 @@ public class BorrowedBookServiceImpl implements BorrowedBookService {
                     throw new InvalidEntityException("this Borrwed book is not valid", ErrorCodes.BORROWED_BOOK_NOT_VALID);
                 }
 
-            if (ifBook_ID_Exist(dto.getBook().getId()) && ifUerIDExist(dto.getUser().getId())) {
+            Optional<User> optionalUser = userRepository.findById(dto.getUser().getId());
+            if (!optionalUser.isEmpty()) {
+                throw new InvalidEntityException("this user id doesn't exist in db", ErrorCodes.User_Not_Found);
+            }
+            Optional<Book> optionalBook = bookRepository.findById(dto.getBook().getId());
+            if (!optionalUser.isEmpty()) {
+                throw new InvalidEntityException("this book id doesn't exist in db", ErrorCodes.Book_Not_Found);
+            }
+//            if (ifBook_ID_Exist(dto.getBook()) && ifUerIDExist(dto.getUser())) {
 
                 dto.setStatus("Not_returned");
                 borrowedBookRepository.save(BorrowedBookDto.toEntity(dto));
 
                 return new ResponseEntity<String>("{\"message\":\"" + "Borrowed book successfully registered "+"\"}", HttpStatus.OK);
 
-            } else throw new EntityNotFoundException(
-                    "No user and book with this ID" + dto.getUser().getId() + dto.getBook().getId()+ " found in DB"
-                    , ErrorCodes.Book_And_User_Not_Found);
+//            } else throw new EntityNotFoundException(
+//                    "No user and book with this ID" + dto.getUser() + dto.getBook()+ " found in DB"
+//                    , ErrorCodes.Book_And_User_Not_Found);
         }
 
-    private boolean ifUerIDExist(Integer id) {
-        Optional<User> optionalUser = userRepository.findById(id);
-        if (optionalUser.isPresent()){
-            return true;
-        }
-        else return false;
-    }
-
-    private boolean ifBook_ID_Exist(Long id) {
-
-            Optional<Book> optionalBook = bookRepository.findById(id);
-            if (optionalBook.isPresent()) {
-                return true;
-            }
-            else return false;
-    }
+//    private boolean ifUerIDExist(User user) {
+//        Optional<User> optionalUser = userRepository.findById(user.getId());
+//        if (optionalUser.isPresent()){
+//            return true;
+//        }
+//        else return false;
+//    }
+//
+//    private boolean ifBook_ID_Exist(Book book) {
+//
+//            Optional<Book> optionalBook = bookRepository.findById(book.getId());
+//            if (optionalBook.isPresent()) {
+//                return true;
+//            }
+//            else return false;
+//    }
 
 
     @Override

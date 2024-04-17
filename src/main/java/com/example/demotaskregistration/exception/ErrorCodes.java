@@ -11,7 +11,8 @@ public enum ErrorCodes {
     Book_And_User_Not_Found(1007),
     BOOK_NOT_VALID(1008),
     Book_Not_Found(1009),
-    THIS_BOOK_ALREADY_IN_USE(1010);
+    THIS_BOOK_ALREADY_IN_USE(1010),
+    User_Not_Found(1011);
     private int code;
     ErrorCodes(int code) {
         this.code = code;

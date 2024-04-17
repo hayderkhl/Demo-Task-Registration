@@ -5,6 +5,7 @@ import lombok.*;
 
 @Builder
 @Getter
+@Data
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -42,5 +43,4 @@ public class UserDto {
 
         return user;
     }
-
 }
