@@ -18,23 +18,23 @@ public class BorrowedBookValidator {
             errors.add("please add a the book to borrow");
             log.info("dto empty");
         }
-        if (dto.getUser() != null)
-        {
-            errors.add("add the name!");
-            log.info("user in valid");
-        }
-
-        if (dto.getBook()!= null)
-        {
-            errors.add("add the name!");
-            log.info("book invalid");
-        }
-        if (dto.getBorrowDate() == null || dto.getBorrowDate().toString().isEmpty()) {
+//        if (dto.getUser() != null)
+//        {
+//            errors.add("add the name!");
+//            log.info("user in valid");
+//        }
+//
+//        if (dto.getBook()!= null)
+//        {
+//            errors.add("add the name!");
+//            log.info("book invalid");
+//        }
+        if (dto.getBorrowDate() == null) {
             errors.add("Add the borrow date!");
             log.info("borrow date invalid");
         }
 
-        if (dto.getReturnDate() == null || dto.getReturnDate().toString().isEmpty()) {
+        if (dto.getReturnDate() == null) {
             errors.add("Add the return date!");
             log.info("retern date invalid");
         }
