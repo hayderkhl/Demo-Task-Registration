@@ -86,11 +86,11 @@ public class BorrowedBookServiceImpl implements BorrowedBookService {
                 }
 
             Optional<User> optionalUser = userRepository.findById(dto.getUser().getId());
-            if (!optionalUser.isEmpty()) {
+            if (optionalUser.isEmpty()) {
                 throw new InvalidEntityException("this user id doesn't exist in db", ErrorCodes.User_Not_Found);
             }
             Optional<Book> optionalBook = bookRepository.findById(dto.getBook().getId());
-            if (!optionalUser.isEmpty()) {
+            if (optionalUser.isEmpty()) {
                 throw new InvalidEntityException("this book id doesn't exist in db", ErrorCodes.Book_Not_Found);
             }
 //            if (ifBook_ID_Exist(dto.getBook()) && ifUerIDExist(dto.getUser())) {
