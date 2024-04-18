@@ -23,6 +23,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -161,8 +162,9 @@ public class BorrowedBookServiceImpl implements BorrowedBookService {
             log.error(" identityNumber is null");
             throw new IllegalArgumentException("identityNumber cannot be  be null");
         }
+        BigInteger count = userRepository.existsByIdentityNumber(identityNumber);
 
-        if (userRepository.existsByIdentityNumber(identityNumber)){
+        if (count.intValue() == 0){
             log.error("Identity number doesn't exist in database");
             throw new IllegalArgumentException("Identity number doesn't exist in database");
         }
