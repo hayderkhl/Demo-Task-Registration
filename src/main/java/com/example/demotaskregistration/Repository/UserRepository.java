@@ -13,7 +13,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     boolean existsByEmail(String email);
 
 //    User findUserByIdentityNumber(@Param("identityNumber") String idendityNumber);
-    boolean existsByIdentityNumber(@Param("identity_number") String identityNumber);
+    @Query(value = "SELECT COUNT(*) > 0 FROM users WHERE identity_number = :identityNumber", nativeQuery = true)
+    boolean existsByIdentityNumber(@Param("identityNumber") String identityNumber);
 
 
 }
