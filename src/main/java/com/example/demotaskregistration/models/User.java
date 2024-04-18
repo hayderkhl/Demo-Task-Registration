@@ -34,6 +34,9 @@ public class User implements Serializable {
         @Column(name = "role")
         private String role;
 
+        @Column(name = "identityNumber")
+        private String identityNumber;
+
         @OneToMany(mappedBy = "user")
         private List<Token> tokens;
 }

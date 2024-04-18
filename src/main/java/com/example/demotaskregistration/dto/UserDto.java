@@ -16,6 +16,7 @@ public class UserDto {
     private String email;
     private String password;
     private String role;
+    private String identityNumber;
 
     public static UserDto fromEntity(User user)
     {
@@ -27,6 +28,7 @@ public class UserDto {
                 .email(user.getEmail())
                 .password(user.getPassword())
                 .role(user.getRole())
+                .identityNumber(user.getIdentityNumber())
                 .build();
     }
 
@@ -40,6 +42,7 @@ public class UserDto {
         user.setEmail(userDto.getEmail());
         user.setPassword(userDto.getPassword());
         user.setRole(userDto.getRole());
+        user.setIdentityNumber(userDto.getIdentityNumber());
 
         return user;
     }

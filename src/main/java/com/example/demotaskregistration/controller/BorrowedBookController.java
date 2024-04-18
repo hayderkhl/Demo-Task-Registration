@@ -1,11 +1,13 @@
 package com.example.demotaskregistration.controller;
 
 import com.example.demotaskregistration.dto.BorrowedBookDto;
+import com.example.demotaskregistration.models.BorrowedBook;
 import com.example.demotaskregistration.service.BorrowedBookService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/borrowed-books")
@@ -45,5 +47,14 @@ public class BorrowedBookController {
     public ResponseEntity<List<BorrowedBookDto>> getOverdueBooks() {
         List<BorrowedBookDto> overdueBooks = borrowedBookService.findOverdueBooks();
         return ResponseEntity.ok(overdueBooks);
+    }
+
+    @GetMapping("/borrowedBook-byUser/{identityNumber}")
+    public ResponseEntity<List<BorrowedBookDto>> getBorrowedBooksByUserIdentityNumber(@PathVariable String identityNumber) {
+        List<BorrowedBook> borrowedBooks = borrowedBookService.findBorrowedBooksByUserIdentityNumber(identityNumber);
+        List<BorrowedBookDto> borrowedBookDtos = borrowedBooks.stream()
+                .map(BorrowedBookDto::fromEntity)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(borrowedBookDtos);
     }
 }

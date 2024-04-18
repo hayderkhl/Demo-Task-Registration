@@ -124,7 +124,7 @@ public class BorrowedBookServiceImpl implements BorrowedBookService {
 
 
     @Override
-        public void returnBook(Long id) {
+        public ResponseEntity<String> returnBook(Long id) {
 
             if (id == null) {
                 log.error("BorrowedBook ID is null");
@@ -136,6 +136,8 @@ public class BorrowedBookServiceImpl implements BorrowedBookService {
                 BorrowedBook borrowedBook = optionalBorrowedBook.get();
                 borrowedBook.setStatus("Returned");
                 borrowedBookRepository.save(borrowedBook);
+                return new ResponseEntity<String>("{\"message\":\"" + "Borrowed book successfully reterned "+"\"}", HttpStatus.OK);
+
             } else {
                 throw new EntityNotFoundException(
                         "No BorrowedBook with ID " + id + " found in the database",
@@ -152,5 +154,20 @@ public class BorrowedBookServiceImpl implements BorrowedBookService {
                     .map(BorrowedBookDto::fromEntity)
                     .collect(Collectors.toList());
         }
+
+    @Override
+    public List<BorrowedBook> findBorrowedBooksByUserIdentityNumber(String identityNumber) {
+        if (identityNumber == null) {
+            log.error(" identityNumber is null");
+            throw new IllegalArgumentException("identityNumber cannot be  be null");
+        }
+
+        if (userRepository.existsByIdentityNumber(identityNumber)){
+            log.error("Identity number doesn't exist in database");
+            throw new IllegalArgumentException("Identity number doesn't exist in database");
+        }
+
+        return borrowedBookRepository.findBorrowedBooksByUserIdentityNumber(identityNumber);
+    }
 
 }

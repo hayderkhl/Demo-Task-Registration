@@ -14,6 +14,9 @@ public interface BorrowedBookRepository extends JpaRepository<BorrowedBook, Long
 
     List<BorrowedBook> findAllByBookId(Long id);
 
+    @Query("SELECT b FROM BorrowedBook b WHERE b.user.identityNumber = :identityNumber")
+    List<BorrowedBook> findBorrowedBooksByUserIdentityNumber(String identityNumber);
+
 
 //    findByReturnDateBeforeAndStatus is a method name derived from Spring Data JPA's method naming conventions. These conventions allow you to declare query methods in your repository interfaces without writing the query explicitly.
 //

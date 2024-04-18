@@ -1,6 +1,7 @@
 package com.example.demotaskregistration.service;
 
 import com.example.demotaskregistration.dto.BorrowedBookDto;
+import com.example.demotaskregistration.models.BorrowedBook;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -13,7 +14,8 @@ public interface BorrowedBookService {
 
     ResponseEntity<String> borrowBook(BorrowedBookDto borrowedBookDto);
 
-    void returnBook(Long id);
+    ResponseEntity<String> returnBook(Long id);
 
     List<BorrowedBookDto> findOverdueBooks();
+    List<BorrowedBook> findBorrowedBooksByUserIdentityNumber(String identityNumber);
 }
