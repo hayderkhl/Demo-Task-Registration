@@ -23,10 +23,7 @@ public class UserValidator {
         {
             errors.add("add your Email!");
         }
-        if (!StringUtils.hasLength(dto.getPassword()))
-        {
-            errors.add("add your Password!");
-        }
+
         if (!StringUtils.hasLength(dto.getIdentityNumber())){
             errors.add("add your getIdentity_number!");
         }

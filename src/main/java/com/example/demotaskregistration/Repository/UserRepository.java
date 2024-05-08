@@ -18,5 +18,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query(value = "SELECT COUNT(*) > 0 FROM users WHERE identity_number = :identityNumber", nativeQuery = true)
     BigInteger existsByIdentityNumber(@Param("identityNumber") String identityNumber);
 
+//    boolean existsByIdentityNumber(@Param("identityNumber") String identityNumber);
+
 
 }
