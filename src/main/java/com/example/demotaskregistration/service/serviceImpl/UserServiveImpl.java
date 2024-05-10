@@ -65,9 +65,9 @@ public class UserServiveImpl implements UserService {
         }
 
         dto.setRole("user");
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(dto.getPassword());
-        dto.setPassword(encodedPassword);
+//        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//        String encodedPassword = passwordEncoder.encode(dto.getPassword());
+//        dto.setPassword(encodedPassword);
 
 //        UserDto.fromEntity(userRepository.save(
 //                UserDto.toEntity(dto)));
