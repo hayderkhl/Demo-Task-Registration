@@ -20,11 +20,11 @@ public class BorrowedBook implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "book", nullable = false)
+    @JoinColumn(name = "book_id", nullable = false)
     private Book book;
 
     @ManyToOne
-    @JoinColumn(name = "user", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @Temporal(TemporalType.TIMESTAMP)
