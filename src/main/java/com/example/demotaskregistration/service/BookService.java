@@ -13,7 +13,7 @@ public interface BookService {
 
     BookDto findById(Integer bookId);
 
-    ResponseEntity<String> delete(Integer id);
+    ResponseEntity<String> delete(Long id);
 
 
 }

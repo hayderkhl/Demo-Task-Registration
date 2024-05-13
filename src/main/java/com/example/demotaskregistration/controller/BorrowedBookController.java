@@ -64,7 +64,7 @@ public class BorrowedBookController {
     public ResponseEntity<String> deleteUser(@PathVariable Long borrowBookId) {
         try {
             borrowedBookService.deleteBorrowedBookById(borrowBookId);
-            return ResponseEntity.ok("User with ID " + borrowBookId + " deleted successfully.");
+            return ResponseEntity.ok("borrowed book with ID " + borrowBookId + " deleted successfully.");
         } catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
         } catch (Exception e) {

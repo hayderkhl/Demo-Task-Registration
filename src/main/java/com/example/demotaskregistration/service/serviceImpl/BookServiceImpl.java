@@ -81,7 +81,7 @@ public class BookServiceImpl implements BookService {
         }
 
     @Override
-    public ResponseEntity<String> delete(Integer id) {
+    public ResponseEntity<String> delete(Long id) {
         if (jwtFilter.isAdmin()) {
             if (id == null) {
                 log.error("Article is null");
