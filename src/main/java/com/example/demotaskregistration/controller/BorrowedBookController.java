@@ -1,8 +1,10 @@
 package com.example.demotaskregistration.controller;
 
 import com.example.demotaskregistration.dto.BorrowedBookDto;
+import com.example.demotaskregistration.exception.EntityNotFoundException;
 import com.example.demotaskregistration.models.BorrowedBook;
 import com.example.demotaskregistration.service.BorrowedBookService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,5 +58,18 @@ public class BorrowedBookController {
                 .map(BorrowedBookDto::fromEntity)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(borrowedBookDtos);
+    }
+
+    @DeleteMapping("/delete/{borrowBookId}")
+    public ResponseEntity<String> deleteUser(@PathVariable Long borrowBookId) {
+        try {
+            borrowedBookService.deleteBorrowedBookById(borrowBookId);
+            return ResponseEntity.ok("User with ID " + borrowBookId + " deleted successfully.");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while deleting the borrowed book: " + e.getMessage());
+        }
     }
 }

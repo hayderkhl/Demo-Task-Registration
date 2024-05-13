@@ -26,6 +26,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -159,6 +160,21 @@ public class UserServiveImpl implements UserService {
             t.setExpired(true);
         });
         tokenRepository.saveAll(validUserTokens);
+    }
+
+    @Transactional
+    public void deleteUser(Integer userId) {
+        if(jwtFilter.isAdmin()) {
+
+            Optional<User> userOptional = userRepository.findById(userId);
+            if (userOptional.isPresent()) {
+                User user = userOptional.get();
+                userRepository.delete(user);
+            } else {
+                throw new EntityNotFoundException("User with ID " + userId + " not found");
+            }
+        }
+
     }
 
 }

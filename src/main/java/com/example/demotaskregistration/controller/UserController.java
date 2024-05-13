@@ -1,6 +1,7 @@
 package com.example.demotaskregistration.controller;
 
 import com.example.demotaskregistration.dto.UserDto;
+import com.example.demotaskregistration.exception.EntityNotFoundException;
 import com.example.demotaskregistration.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -64,6 +65,19 @@ public class UserController {
         {
             ex.printStackTrace();
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User Id Not Found");
+        }
+    }
+
+    @DeleteMapping("/delete/{userId}")
+    public ResponseEntity<String> deleteUser(@PathVariable Integer userId) {
+        try {
+            userService.deleteUser(userId);
+            return ResponseEntity.ok("User with ID " + userId + " deleted successfully.");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while deleting the user: " + e.getMessage());
         }
     }
 

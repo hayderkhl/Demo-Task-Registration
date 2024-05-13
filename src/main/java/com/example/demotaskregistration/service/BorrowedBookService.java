@@ -18,4 +18,6 @@ public interface BorrowedBookService {
 
     List<BorrowedBookDto> findOverdueBooks();
     List<BorrowedBook> findBorrowedBooksByUserIdentityNumber(String identityNumber);
+
+    void deleteBorrowedBookById(Long id);
 }

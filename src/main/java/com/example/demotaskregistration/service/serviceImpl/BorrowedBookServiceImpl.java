@@ -3,9 +3,7 @@ package com.example.demotaskregistration.service.serviceImpl;
 import com.example.demotaskregistration.Repository.BookRepository;
 import com.example.demotaskregistration.Repository.BorrowedBookRepository;
 import com.example.demotaskregistration.Repository.UserRepository;
-import com.example.demotaskregistration.dto.BookDto;
 import com.example.demotaskregistration.dto.BorrowedBookDto;
-import com.example.demotaskregistration.dto.UserDto;
 import com.example.demotaskregistration.exception.EntityNotFoundException;
 import com.example.demotaskregistration.exception.ErrorCodes;
 import com.example.demotaskregistration.exception.InvalidEntityException;
@@ -16,13 +14,12 @@ import com.example.demotaskregistration.models.BorrowedBook;
 import com.example.demotaskregistration.models.User;
 import com.example.demotaskregistration.service.BorrowedBookService;
 import com.example.demotaskregistration.valadator.BorrowedBookValidator;
-import com.example.demotaskregistration.valadator.UserValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
+import javax.transaction.Transactional;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
@@ -101,27 +98,7 @@ public class BorrowedBookServiceImpl implements BorrowedBookService {
 
                 return new ResponseEntity<String>("{\"message\":\"" + "Borrowed book successfully registered "+"\"}", HttpStatus.OK);
 
-//            } else throw new EntityNotFoundException(
-//                    "No user and book with this ID" + dto.getUser() + dto.getBook()+ " found in DB"
-//                    , ErrorCodes.Book_And_User_Not_Found);
         }
-
-//    private boolean ifUerIDExist(User user) {
-//        Optional<User> optionalUser = userRepository.findById(user.getId());
-//        if (optionalUser.isPresent()){
-//            return true;
-//        }
-//        else return false;
-//    }
-//
-//    private boolean ifBook_ID_Exist(Book book) {
-//
-//            Optional<Book> optionalBook = bookRepository.findById(book.getId());
-//            if (optionalBook.isPresent()) {
-//                return true;
-//            }
-//            else return false;
-//    }
 
 
     @Override
@@ -170,6 +147,21 @@ public class BorrowedBookServiceImpl implements BorrowedBookService {
         }
 
         return borrowedBookRepository.findBorrowedBooksByUserIdentityNumber(identityNumber);
+    }
+
+    @Transactional
+    public void deleteBorrowedBookById(Long borrowBookId) {
+
+            if(jwtFilter.isAdmin()) {
+
+                Optional<BorrowedBook> borrowBookOptional = borrowedBookRepository.findById(borrowBookId);
+                if (borrowBookOptional.isPresent()) {
+                    BorrowedBook borrowedBook = borrowBookOptional.get();
+                    borrowedBookRepository.delete(borrowedBook);
+                } else {
+                    throw new EntityNotFoundException("borrowBook with ID " + borrowBookId + " not found");
+                }
+            }
     }
 
 }
